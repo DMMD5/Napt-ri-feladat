@@ -35,11 +35,14 @@ namespace Naptári_feladat
                 switch (menu)
                 {
                     case "1":
-                        return;
+                        Megjelenites();
+                        break;
                     case "2":
-                        return;
+                        UjEsemeny();
+                        break;
                     case "3":
-                        return;
+                        LegkozelebbiEsemeny();
+                        break;
                     case "4":
                         return;
                     default:
@@ -111,12 +114,28 @@ namespace Naptári_feladat
                 return;
             }
 
+            Console.Write("Dátum (YYYY-MM-DD): ");
+            string datum = Console.ReadLine();
+
+            Console.Write("Idő (HH:MM): ");
+            string ido = Console.ReadLine();
+
             DateTime kezdes;
             if (!DateTime.TryParse(datum + " " + ido, out kezdes))
             {
+                Console.WriteLine("Hibás dátum vagy idő!");
+                return;
             }
 
-            DateTime vege = kezdes.AddMinutes();
+            Console.Write("Időtartam (perc): ");
+            int idotartam;
+            if (!int.TryParse(Console.ReadLine(), out idotartam))
+            {
+                Console.WriteLine("Hibás időtartam!");
+                return;
+            }
+
+            DateTime vege = kezdes.AddMinutes(idotartam);
 
             foreach (Esemeny e in esemenyek)
             {
@@ -131,6 +150,15 @@ namespace Naptári_feladat
                     }
                 }
             }
+
+            esemenyek.Add(new Esemeny
+            {
+                Tulajdonos = tulajdonos,
+                Idopont = kezdes,
+                Idotartam = idotartam
+            });
+
+            Console.WriteLine("Esemény rögzítve.");
         }
         static void LegkozelebbiEsemeny()
         {
@@ -138,8 +166,13 @@ namespace Naptári_feladat
                 EV,
                 HONAP,
                 rnd.Next(1, 30),
-                rnd.Next(8, 20)
+                rnd.Next(8, 20),
+                rnd.Next(0, 2) * 30,
+                0
             );
+
+            Console.WriteLine($"Viszonyítási idő: {alapIdo:yyyy-MM-dd HH:mm}");
+
             Esemeny legkozelebbi = esemenyek[0];
             double minKul = Math.Abs((esemenyek[0].Idopont - alapIdo).TotalMinutes);
 
@@ -148,8 +181,13 @@ namespace Naptári_feladat
                 double kul = Math.Abs((e.Idopont - alapIdo).TotalMinutes);
                 if (kul < minKul)
                 {
+                    minKul = kul;
+                    legkozelebbi = e;
                 }
             }
+
+            Console.WriteLine("Legközelebbi esemény:");
+            Console.WriteLine($"{legkozelebbi.Tulajdonos} | {legkozelebbi.Idopont:yyyy-MM-dd HH:mm} | {legkozelebbi.Idotartam} perc");
         }
     }
 }
