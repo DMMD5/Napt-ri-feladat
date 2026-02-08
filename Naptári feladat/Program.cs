@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 struct Esemeny
 {
     public string Tulajdonos;
@@ -11,15 +12,18 @@ struct Esemeny
 }
 
 namespace Naptári_feladat
-{
+{ 
     internal class Program
     {
         static List<Esemeny> esemenyek = new List<Esemeny>();
         static Random rnd = new Random();
+
         const int EV = 2028;
         const int HONAP = 2;
-        static void Main(string[] args)
+
+        static void Main()
         {
+            Esemenyek();
 
             while (true)
             {
@@ -49,10 +53,9 @@ namespace Naptári_feladat
                         Console.WriteLine("Érvénytelen választás!");
                         break;
                 }
-
             }
-
         }
+
         static void Esemenyek()
         {
             foreach (string tulajdonos in new[] { "apa", "anya" })
@@ -160,6 +163,7 @@ namespace Naptári_feladat
 
             Console.WriteLine("Esemény rögzítve.");
         }
+
         static void LegkozelebbiEsemeny()
         {
             DateTime alapIdo = new DateTime(
