@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Naptári feladat", "Naptári feladat\Naptári feladat.csproj", "{03C8B373-4A8B-465A-9069-6C02F1018DA3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03C8B373-4A8B-465A-9069-6C02F1018DA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C8B373-4A8B-465A-9069-6C02F1018DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C8B373-4A8B-465A-9069-6C02F1018DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C8B373-4A8B-465A-9069-6C02F1018DA3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3CD72A75-47D0-4156-A9A3-BA34A0AF697B}
+	EndGlobalSection
+EndGlobal
