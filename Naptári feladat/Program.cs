@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,10 +10,11 @@ struct Esemeny
     public string Tulajdonos;
     public DateTime Idopont;
     public int Idotartam;
+    public bool IsNew;
 }
 
 namespace Naptári_feladat
-{ 
+{
     internal class Program
     {
         static List<Esemeny> esemenyek = new List<Esemeny>();
@@ -62,7 +64,7 @@ namespace Naptári_feladat
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    int nap = rnd.Next(1, 30);
+                    int nap = rnd.Next(1, 29);
                     int ora = rnd.Next(8, 20);
                     int perc = rnd.Next(0, 2) * 30;
 
@@ -73,7 +75,8 @@ namespace Naptári_feladat
                     {
                         Tulajdonos = tulajdonos,
                         Idopont = idopont,
-                        Idotartam = idotartam
+                        Idotartam = idotartam,
+                        IsNew = false
                     });
                 }
             }
@@ -100,10 +103,21 @@ namespace Naptári_feladat
                 }
             }
 
+            Console.WriteLine("\n--- Események listája ---");
             foreach (Esemeny e in esemenyek)
             {
-                Console.WriteLine($"{e.Tulajdonos} | {e.Idopont:yyyy-MM-dd HH:mm} | {e.Idotartam} perc");
+                if (e.IsNew)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                else
+                {
+                    Console.ResetColor();
+                }
+
+                Console.WriteLine($"{e.Tulajdonos.PadRight(5)} | {e.Idopont:yyyy-MM-dd HH:mm} | {e.Idotartam} perc");
             }
+            Console.ResetColor();
         }
 
         static void UjEsemeny()
@@ -158,24 +172,27 @@ namespace Naptári_feladat
             {
                 Tulajdonos = tulajdonos,
                 Idopont = kezdes,
-                Idotartam = idotartam
+                Idotartam = idotartam,
+                IsNew = true
             });
 
-            Console.WriteLine("Esemény rögzítve.");
+            Console.WriteLine("Esemény rögzítve (zölddel fog megjelenni a listában).");
         }
 
         static void LegkozelebbiEsemeny()
         {
+            if (esemenyek.Count == 0) return;
+
             DateTime alapIdo = new DateTime(
                 EV,
                 HONAP,
-                rnd.Next(1, 30),
+                rnd.Next(1, 28),
                 rnd.Next(8, 20),
                 rnd.Next(0, 2) * 30,
                 0
             );
 
-            Console.WriteLine($"Viszonyítási idő: {alapIdo:yyyy-MM-dd HH:mm}");
+            Console.WriteLine($"\nViszonyítási idő: {alapIdo:yyyy-MM-dd HH:mm}");
 
             Esemeny legkozelebbi = esemenyek[0];
             double minKul = Math.Abs((esemenyek[0].Idopont - alapIdo).TotalMinutes);
